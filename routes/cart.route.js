@@ -1,6 +1,8 @@
 const router = require("express").Router();
+const { default: mongoose } = require("mongoose");
 const verifyJWT = require("../middleware/token-verify");
 const Cart = require("../schema/cart.schema");
+const { findByIdAndDelete } = require("../schema/product.schema");
 
 router.get("/", verifyJWT, async (req, res) => {
   try {
@@ -13,6 +15,33 @@ router.get("/", verifyJWT, async (req, res) => {
     res.status(200).send({ result });
   } catch (error) {
     res.json("cart error");
+  }
+});
+
+router.post("/", async (req, res) => {
+  const cartItems = req.body;
+  const addCollection = await Cart.create(cartItems);
+  res.send(addCollection);
+});
+
+router.delete("/:id", async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    if (!mongoose.isValidObjectId(id)) {
+      return res.status(400).json({ error: "Invalid ID" });
+    }
+
+    const deletedItem = await Cart.findByIdAndDelete(id);
+
+    if (!deletedItem) {
+      return res.status(404).json({ error: "Item not found" });
+    }
+
+    res.status(200).json({ message: "Item deleted successfully", deletedItem });
+  } catch (error) {
+    console.error("Error deleting item:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
