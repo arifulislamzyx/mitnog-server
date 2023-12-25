@@ -12,7 +12,7 @@ router.get("/carts", verifyJWT, async (req, res) => {
     if (!email) res.send("Bad request");
     const result = await Cart.find({ email });
     console.log(result);
-    res.status(200).send({ result });
+    res.status(200).send(result);
   } catch (error) {
     res.json("cart error");
   }
@@ -23,31 +23,31 @@ router.post("/carts", async (req, res) => {
   console.log("carts Body", cartItems);
   try {
     const addCollection = await Cart.create(cartItems);
-    res.status(200).send({ addCollection });
+    res.status(200).send(addCollection);
   } catch (error) {
     res.status(500).send({ error: error.message });
   }
 });
 
-// router.delete("/:id", async (req, res) => {
-//   const id = req.params.id;
+router.delete("/:id", async (req, res) => {
+  const id = req.params.id;
 
-//   try {
-//     if (!mongoose.isValidObjectId(id)) {
-//       return res.status(400).json({ error: "Invalid ID" });
-//     }
+  try {
+    if (!mongoose.isValidObjectId(id)) {
+      return res.status(400).json({ error: "Invalid ID" });
+    }
 
-//     const deletedItem = await Cart.findByIdAndDelete(id);
+    const deletedItem = await Cart.findByIdAndDelete(id);
 
-//     if (!deletedItem) {
-//       return res.status(404).json({ error: "Item not found" });
-//     }
+    if (!deletedItem) {
+      return res.status(404).json({ error: "Item not found" });
+    }
 
-//     res.status(200).json({ message: "Item deleted successfully", deletedItem });
-//   } catch (error) {
-//     console.error("Error deleting item:", error);
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// });
+    res.status(200).json({ message: "Item deleted successfully", deletedItem });
+  } catch (error) {
+    console.error("Error deleting item:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 module.exports = router;
