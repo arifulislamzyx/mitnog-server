@@ -20,7 +20,7 @@ app.use("/products", productRoute);
 app.use("/auth", authRoute);
 app.use("/", cartRoute);
 app.use("/", userRoute);
-// app.use("/", paymentRoute);
+app.use("/", paymentRoute);
 
 app.get("/", async (req, res) => {
   return res.json({ message: "Mitnog Data Showing Here" });

@@ -11,7 +11,7 @@ router.post("/create-payment-intent", verifyJWT, async (req, res) => {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount,
       currency: "usd",
-      payment_method_types: ["card"],
+      payment_method: ["card"],
     });
     res.status(200).send({ clientSecret: paymentIntent.client_secret });
   } catch (error) {
@@ -36,3 +36,5 @@ router.post("/payments", verifyJWT, async (req, res) => {
     console.log("paymnet not created =>", error);
   }
 });
+
+module.exports = router;
