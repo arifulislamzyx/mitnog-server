@@ -6,8 +6,6 @@ const cartRoute = require("./routes/cart.route");
 const userRoute = require("./routes/user.route");
 const authRoute = require("./routes/auth.route");
 const paymentRoute = require("./routes/payment.route");
-const stripe = require("stripe")(process.env.Stripe_Security_Key);
-console.log("payment=>", process.env.Stripe_Security_Key);
 
 const cors = require("cors");
 
