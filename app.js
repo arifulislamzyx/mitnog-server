@@ -6,6 +6,7 @@ const cartRoute = require("./routes/cart.route");
 const userRoute = require("./routes/user.route");
 const authRoute = require("./routes/auth.route");
 const paymentRoute = require("./routes/payment.route");
+const blogRoute = require("./routes/blog.route");
 
 const cors = require("cors");
 
@@ -18,6 +19,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/products", productRoute);
 app.use("/auth", authRoute);
+app.use("/", blogRoute);
 app.use("/", cartRoute);
 app.use("/", userRoute);
 app.use("/", paymentRoute);
