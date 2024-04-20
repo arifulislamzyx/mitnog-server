@@ -21,4 +21,10 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.post("/", async (req, res) => {
+  const product = req.body;
+  const result = await Product.create(product);
+  res.send(result);
+});
+
 module.exports = router;

@@ -7,7 +7,7 @@ router.get("/blogs", async (req, res) => {
     res.send(blogs);
     console.log("blogs", blogs);
   } catch (error) {
-    res.json("blogs not found");
+    res.json("blogs not found ");
   }
 });
 
