@@ -17,14 +17,18 @@ router.get("/:id", async (req, res) => {
     const product = await Product.findById(id);
     res.send(product);
   } catch (error) {
-    res.json("single product fetch failed");
+    res.json("single product fetch failed", error);
   }
 });
 
 router.post("/", async (req, res) => {
-  const product = req.body;
-  const result = await Product.create(product);
-  res.send(result);
+  try {
+    const product = req.body;
+    const result = await Product.create(product);
+    res.send(result);
+  } catch (error) {
+    res.json("single product fetch failed", error);
+  }
 });
 
 module.exports = router;
